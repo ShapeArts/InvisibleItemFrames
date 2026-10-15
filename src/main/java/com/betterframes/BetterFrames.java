@@ -12,12 +12,12 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 public class BetterFrames implements ModInitializer {
  public static final String FRAME_TAG="invisibleitemframes.hidden";
  public static final String NAME_TAG="invisibleitemframes.hide_name";
- public static boolean flagged(ItemFrame f,String tag){return f.getTags().contains(tag);}
+ public static boolean flagged(ItemFrame f,String tag){return f.getCommandTags().contains(tag);}
  public static void setFlag(ItemFrame f,String tag,boolean value){if(value)f.addTag(tag);else f.removeTag(tag);}
  public static void send(ServerPlayer p,ItemFrame f,boolean open){ServerPlayNetworking.send(p,new FramePackets.State(f.getId(),flagged(f,FRAME_TAG),flagged(f,NAME_TAG),open));}
  @Override public void onInitialize(){
-  PayloadTypeRegistry.playS2C().register(FramePackets.State.TYPE,FramePackets.State.CODEC);
-  PayloadTypeRegistry.playC2S().register(FramePackets.Set.TYPE,FramePackets.Set.CODEC);
+  PayloadTypeRegistry.clientboundPlay().register(FramePackets.State.TYPE,FramePackets.State.CODEC);
+  PayloadTypeRegistry.serverboundPlay().register(FramePackets.Set.TYPE,FramePackets.Set.CODEC);
   UseEntityCallback.EVENT.register((p,w,h,e,hit)->{
    if(!(e instanceof ItemFrame f)||!p.isShiftKeyDown())return InteractionResult.PASS;
    if(!w.isClientSide()&&p instanceof ServerPlayer sp)send(sp,f,true);
