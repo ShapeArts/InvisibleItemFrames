@@ -9,7 +9,7 @@ public class BetterFramesClient implements ClientModInitializer {
  @Override public void onInitializeClient(){
   ClientPlayNetworking.registerGlobalReceiver(FramePackets.State.TYPE,(packet,ctx)->ctx.client().execute(()->{
    HIDDEN_NAMES.put(packet.id(),packet.hideName());
-   if(packet.open())ctx.client().setScreen(new FrameScreen(packet.id(),packet.hidden(),packet.hideName()));
+   if(packet.open())ctx.client().gui.setScreen(new FrameScreen(packet.id(),packet.hidden(),packet.hideName()));
   }));
  }
  public static void change(int id,boolean hidden,boolean hideName){
