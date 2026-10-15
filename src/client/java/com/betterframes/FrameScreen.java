@@ -1,5 +1,5 @@
 package com.betterframes;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -16,6 +16,6 @@ public class FrameScreen extends Screen {
  }
  private void refresh(){frameButton.setMessage(Component.literal("Hide Item Frame: "+(hidden?"ON":"OFF")));nameButton.setMessage(Component.literal("Hide Item Name: "+(hideName?"ON":"OFF")));}
  private void change(){refresh();BetterFramesClient.change(id,hidden,hideName);}
- @Override public void render(GuiGraphics graphics,int mouseX,int mouseY,float delta){super.render(graphics,mouseX,mouseY,delta);graphics.drawCenteredString(font,title,width/2,height/2-76,0xffffff);}
+ @Override public void extractRenderState(GuiGraphicsExtractor graphics,int mouseX,int mouseY,float delta){super.extractRenderState(graphics,mouseX,mouseY,delta);graphics.centeredText(font,title,width/2,height/2-76,0xffffff);}
  @Override public boolean isPauseScreen(){return false;}
 }
